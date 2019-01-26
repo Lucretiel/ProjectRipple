@@ -5,7 +5,7 @@ using UnityEngine;
 public class RippleAgent : MonoBehaviour
 {
     // Our velocity. 
-    public Vector3 velocity;
+    public float speed;
 
     public RippleAgent leftNeighbor;
     public RippleAgent rightNeighbor;
@@ -13,33 +13,30 @@ public class RippleAgent : MonoBehaviour
     // How far away you can be from a neighbor before spawning a new neighbor.
     // Note that this is a square quantity.
     public double spawnThreshold = 1;
+    public RippleOrigin origin;
+
+    private Vector3 getRelativeVec()
+    {
+        return transform.position - origin.transform.position;
+    }
 
     private void FixedUpdate()
     {
-        // TODO: a LOT of this work is going to be duplicated unnecisarily. If
-        // that kills performance, move it to a system.
-        var myRealPosition = this.transform.position;
-        var neighborRealPosition = this.leftNeighbor.transform.position;
-        var toNeighbor = neighborRealPosition - myRealPosition;
+        // Check for spawning neighbors
+        var toNeighbor = this.leftNeighbor.transform.position - this.transform.position;
         var distance = toNeighbor.magnitude;
-        if (distance > spawnThreshold)
+        if (distance > spawnThreshold && origin.Equals(leftNeighbor.origin))
         {
-            //Debug.Break();
-
             var oldLeftNeighbor = leftNeighbor;
-            var midpoint = myRealPosition + (toNeighbor /2);
 
-            // Find the new velocity as the average of the two. It might be better
-            // to do a simple rotation?
-            var newVelocity = (this.velocity + oldLeftNeighbor.velocity).normalized * this.velocity.magnitude;
+            // TODO: this should only happen if they share an origin. Try to use
+            // transforms for Ident
+            var myRelativeVec = getRelativeVec();
+            var neighborRelativeVec = oldLeftNeighbor.getRelativeVec();
 
-            // Perterb the midpoint by h'.
-            // Ask Nathan for a proof on this formula
-            var newCenter = midpoint;
-
-            var newLeftNeighbor = Instantiate(this);
-            newLeftNeighbor.transform.position = newCenter;
-            newLeftNeighbor.velocity = newVelocity;
+            var newRelativeVec = Vector3.Slerp(myRelativeVec, neighborRelativeVec, 0.5f);
+ 
+            var newLeftNeighbor = Instantiate(this, this.origin.transform.position + newRelativeVec, this.transform.rotation, this.transform.parent);
 
             oldLeftNeighbor.rightNeighbor = newLeftNeighbor;
             this.leftNeighbor = newLeftNeighbor;
@@ -47,11 +44,23 @@ public class RippleAgent : MonoBehaviour
             newLeftNeighbor.leftNeighbor = oldLeftNeighbor;
             newLeftNeighbor.rightNeighbor = this;
         }
+
+        // Check for reflections
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.transform.position += (this.velocity * Time.deltaTime);
+        var tick = (this.transform.position - this.origin.transform.position).normalized * speed * Time.deltaTime;
+        this.transform.position += tick; 
+        Debug.DrawLine(transform.position, leftNeighbor.transform.position, Color.cyan);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var reflector = other.GetComponent<Reflector>();
+        var newOrigin = origin.GetReflectedOrigin(reflector);
+        origin = newOrigin;
     }
 }
