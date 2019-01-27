@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RippleManager : MonoBehaviour
-{
+public class RippleManager : MonoBehaviour {
+    public float autoDieTime = 3;
     public Material shader;
     private LineRenderer lineRenderer;
 
@@ -12,6 +12,7 @@ public class RippleManager : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.transform.SetParent(this.transform);
         lineRenderer.material = shader;
+        StartCoroutine(AutoDie());
     }
 
     void Update()
@@ -36,5 +37,11 @@ public class RippleManager : MonoBehaviour
     public void Remove()
     {
         Object.Destroy(gameObject);
+    }
+
+    private IEnumerator AutoDie()
+    {
+        yield return new WaitForSeconds(autoDieTime);
+        Destroy(gameObject);
     }
 }
