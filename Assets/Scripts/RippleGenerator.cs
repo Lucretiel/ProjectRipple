@@ -5,9 +5,10 @@ using UnityEngine;
 public class RippleGenerator : MonoBehaviour
 {
     public GameObject RippleResource;
+    public Material shader;
     GameObject[] RippleList = new GameObject[10];
     LineRenderer lineRenderer;
-    // Start is called before the first frame update
+
     void Start()
     {
         float DegreeDifference = Mathf.PI * 2 / RippleList.Length;
@@ -15,7 +16,7 @@ public class RippleGenerator : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.transform.SetParent(this.transform);
         lineRenderer.positionCount = RippleList.Length + 1;
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default")){ color = Color.red };
+        lineRenderer.material = shader;
 
         for (int i = 0; i < RippleList.Length; i++)
         { 
@@ -26,7 +27,6 @@ public class RippleGenerator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         for (int i = 0; i < RippleList.Length; i++)
@@ -34,6 +34,7 @@ public class RippleGenerator : MonoBehaviour
             lineRenderer.SetPosition(i, RippleList[i].transform.position);
         }
 
+        // close the loop
         lineRenderer.SetPosition(RippleList.Length, RippleList[0].transform.position);
     }
 
