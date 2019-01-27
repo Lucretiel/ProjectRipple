@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8270651893229568810}
   - component: {fileID: 8270651893229568811}
-  - component: {fileID: 8270651893229568805}
+  - component: {fileID: 354099942}
   m_Layer: 8
   m_Name: Right Agent
   m_TagString: Untagged
@@ -195,19 +195,22 @@ MonoBehaviour:
   rightNeighbor: {fileID: 8270651894081413551}
   spawnThreshold: 1
   cornerThreshold: 1.5
---- !u!135 &8270651893229568805
-SphereCollider:
+--- !u!58 &354099942
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8270651893229568808}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8270651893265281876
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8270651893265281878}
   - component: {fileID: 8270651893265281879}
-  - component: {fileID: 8270651893265281873}
+  - component: {fileID: 1318815745}
   m_Layer: 8
   m_Name: Top Agent
   m_TagString: Untagged
@@ -258,19 +261,22 @@ MonoBehaviour:
   rightNeighbor: {fileID: 8270651893229568811}
   spawnThreshold: 1
   cornerThreshold: 1.5
---- !u!135 &8270651893265281873
-SphereCollider:
+--- !u!58 &1318815745
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8270651893265281876}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8270651893507456791
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8270651893507456790}
   - component: {fileID: 8270651893507456785}
-  - component: {fileID: 8270651893507456784}
+  - component: {fileID: 1885851826}
   m_Layer: 8
   m_Name: Left Agent
   m_TagString: Untagged
@@ -321,19 +327,22 @@ MonoBehaviour:
   rightNeighbor: {fileID: 8270651893265281879}
   spawnThreshold: 1
   cornerThreshold: 1.5
---- !u!135 &8270651893507456784
-SphereCollider:
+--- !u!58 &1885851826
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8270651893507456791}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8270651893778705349
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8270651894081413550}
   - component: {fileID: 8270651894081413551}
-  - component: {fileID: 8270651894081413545}
+  - component: {fileID: 1699770883}
   m_Layer: 8
   m_Name: Bottom Agent
   m_TagString: Untagged
@@ -427,16 +436,19 @@ MonoBehaviour:
   rightNeighbor: {fileID: 8270651893507456785}
   spawnThreshold: 1
   cornerThreshold: 1.5
---- !u!135 &8270651894081413545
-SphereCollider:
+--- !u!58 &1699770883
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8270651894081413548}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

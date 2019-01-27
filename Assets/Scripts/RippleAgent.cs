@@ -124,7 +124,7 @@ public class RippleAgent : MonoBehaviour
         //}
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // Check for collisions with Reflectors, and reflect if necessary.
         var reflector = other.GetComponent<Reflector>();
