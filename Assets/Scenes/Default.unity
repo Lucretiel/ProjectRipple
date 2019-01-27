@@ -310,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 6317067890847041859, guid: 42e5ce46e0761429fa8e82a09ff15ff1,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6317067890847041869, guid: 42e5ce46e0761429fa8e82a09ff15ff1,
         type: 3}
@@ -2848,7 +2848,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5426,7 +5426,7 @@ PrefabInstance:
     - target: {fileID: 1887184537527462366, guid: f2e45da6bf6d84bf6980616b7fd38af6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5554590593507455493, guid: f2e45da6bf6d84bf6980616b7fd38af6,
         type: 3}
@@ -5642,7 +5642,7 @@ Transform:
   m_GameObject: {fileID: 455745297}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.12, y: -0.02, z: 10}
-  m_LocalScale: {x: 0.5478157, y: 0.51718867, z: 1}
+  m_LocalScale: {x: 1.62, y: 1.72, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -5720,7 +5720,7 @@ MonoBehaviour:
   Levels:
   - {fileID: 838469864}
   - {fileID: 1341566151}
-  testingLevels: 1
+  testingLevels: 0
 --- !u!50 &455745303
 Rigidbody2D:
   serializedVersion: 4
