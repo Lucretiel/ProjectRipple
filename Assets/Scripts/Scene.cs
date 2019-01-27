@@ -47,7 +47,7 @@ public class Scene : MonoBehaviour, IPointerClickHandler
 
     private void UpdateAudioLevels(float volume)
     {
-        for (int i = 1; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             audioLayers[i].volume = volume;
         }

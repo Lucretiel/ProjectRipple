@@ -15,6 +15,12 @@ public class ShapeTrigger : MonoBehaviour {
     private float _autoDieTime = 1;
     [SerializeField]
     private bool _isCheckingCollisions = true;
+    private AudioSource sfx;
+
+    private void Start()
+    {
+        sfx = gameObject.AddComponent<AudioSource>();
+    }
 
     private void Awake() {
         _spriteRenderer = GetComponent<SpriteShapeRenderer>();
@@ -39,6 +45,7 @@ public class ShapeTrigger : MonoBehaviour {
     private void CheckCollisionIntersection() {
         if (_collectiveColliderSize.x >= _boundSize.x && 
             _collectiveColliderSize.y >= _boundSize.y) {
+            sfx.PlayOneShot((AudioClip)Resources.Load("Sounds/Edge_3"));
             ChangeColor(TriggerColor);
             SendMessageUpwards("RegisterShapeCollision", GetInstanceID());
         } else if (_spriteRenderer.material.color != OriginalColor) {
