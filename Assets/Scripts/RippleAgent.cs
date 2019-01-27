@@ -2,8 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A Ripple agent is a single node that forms the outline of a ripple. It does
+/// a few things:
+/// <list type="bullet">
+///     <item>It moves in a straight line away from its origin at a fixed
+///     speed</item>
+///     <item>When it gets too far away from its left neighbor, it spawns a new
+///     agent between them, iff they share the same origin.</item>
+///     <item>When it collides with a reflector, it reflects itself. It does
+///     this by asking its origin to create a mirrored origin (see RippleOrigin).
+///     Because agents always move away from their origin, this causes it to
+///     move away in the new direction</item>
+///     <item>When it gets too far away from its left neighbor, and they don't
+///     share an origin, it assumes a disjunction happened at a corner, and
+///     runs a bunch of logic to create extra agents with the corner as the
+///     origin</item>
+/// </summary>
 public class RippleAgent : MonoBehaviour
 {
+    // This Agent's origin. Agents always move at a fixed speed away from this
+    // point. It changes when the agent undergoes a reflection.
+    public RippleOrigin origin;
+
     // Our velocity. 
     public float speed;
 
@@ -11,19 +32,20 @@ public class RippleAgent : MonoBehaviour
     public RippleAgent rightNeighbor;
 
     // How far away you can be from a neighbor before spawning a new neighbor.
-    // Note that this is a square quantity.
     public double spawnThreshold = 1;
 
     // How far away you can be from a neighbor before we assume a corner happened
     // and a new origin is created
     public double cornerThreshold = 3;
-    public RippleOrigin origin;
 
+    // The vector from the Agent's origin to its location
     private Vector3 getRelativeVec()
     {
         return transform.position - origin.transform.position;
     }
 
+    // Spawn a new Agent to this agent's "Left". Update the chain of leftNeighbor
+    // and rightNeighbor
     private RippleAgent SpawnLeft(Vector3 position, RippleOrigin newOrigin)
     {
         var oldLeftNeighbor = leftNeighbor;
@@ -40,6 +62,8 @@ public class RippleAgent : MonoBehaviour
         return newLeftNeighbor;
     }
 
+    // Use a slerp calculation to automatically spawn a new agent to this agent's
+    // left in the right location along the curve.
     private RippleAgent SpawnLeftOnCurve()
     {
         var myRelativeVec = getRelativeVec();
@@ -51,21 +75,23 @@ public class RippleAgent : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Check if we need to spawn a new neighbor
         var toNeighbor = this.leftNeighbor.transform.position - this.transform.position;
         var distance = toNeighbor.magnitude;
         var sameOrigin = origin.Equals(leftNeighbor.origin);
-        if (distance > spawnThreshold && sameOrigin)
+        if (distance > spawnThreshold && sameOrigin) 
         {
             SpawnLeftOnCurve();
         }
 
-        // Check for corners
+        // Check if we hit a corner, and need to create a new corner origin with
+        // some new agents
         else if (distance > cornerThreshold && !sameOrigin)
         {
-            // Locate the corner
             Vector3 closest1;
             Vector3 closest2;
 
+            // Locate the corner
             Util.ClosestPointsOnTwoLines(
                 out closest1, out closest2,
                 origin.transform.position, getRelativeVec(),
@@ -88,6 +114,7 @@ public class RippleAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Move the agent
         var tick = getRelativeVec().normalized * speed * Time.deltaTime;
         this.transform.position += tick;
 
@@ -99,6 +126,7 @@ public class RippleAgent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Check for collisions with Reflectors, and reflect if necessary.
         var reflector = other.GetComponent<Reflector>();
         var newOrigin = origin.GetReflectedOrigin(reflector);
         origin = newOrigin;

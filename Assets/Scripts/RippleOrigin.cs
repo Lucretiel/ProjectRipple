@@ -6,6 +6,10 @@ public class RippleOrigin : MonoBehaviour
 {
     private Dictionary<Reflector, RippleOrigin> storedReflections;
 
+    // Get a new origin, reflected about the reflector. We assume the reflector
+    // is a Plane with its normal in the +Z direction. We store the reflected
+    // origin, so when subsequent points reflect about the same reflector, they
+    // all get the same origin.
     public RippleOrigin GetReflectedOrigin(Reflector reflector)
     {
         RippleOrigin resultOrigin;
