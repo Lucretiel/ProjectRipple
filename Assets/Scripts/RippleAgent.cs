@@ -128,7 +128,10 @@ public class RippleAgent : MonoBehaviour
     {
         //Check for collisions with Reflectors, and reflect if necessary.
         var reflector = collision.gameObject.GetComponent<Reflector>();
-        var newOrigin = origin.GetReflectedOrigin(reflector);
-        SetOrigin(newOrigin);
+        if (reflector != null)
+        {
+            var newOrigin = origin.GetReflectedOrigin(reflector);
+            SetOrigin(newOrigin);
+        }
     }
 }
