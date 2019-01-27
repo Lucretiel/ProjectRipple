@@ -118,10 +118,10 @@ public class RippleAgent : MonoBehaviour
         var tick = getRelativeVec().normalized * speed * Time.deltaTime;
         this.transform.position += tick;
 
-        if(this.origin.Equals(leftNeighbor.origin))
-        {
-            Debug.DrawLine(transform.position, leftNeighbor.transform.position, Color.cyan);
-        }
+        //if(this.origin.Equals(leftNeighbor.origin))
+        //{
+        //    Debug.DrawLine(transform.position, leftNeighbor.transform.position, Color.cyan);
+        //}
     }
 
     private void OnTriggerEnter(Collider other)

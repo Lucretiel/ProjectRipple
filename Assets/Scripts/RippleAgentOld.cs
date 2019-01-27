@@ -19,7 +19,7 @@ public class RippleAgentOld : MonoBehaviour
 
         if (speed <= 0)
         {
-            transform.parent.gameObject.GetComponent<RippleGenerator>().Remove();
+            transform.parent.gameObject.GetComponent<RippleManager>().Remove();
         }
     }
 }
