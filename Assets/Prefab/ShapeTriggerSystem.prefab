@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5554590593507455493}
   - component: {fileID: 77075303001340849}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShapeTriggerSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

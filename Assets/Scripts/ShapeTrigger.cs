@@ -5,56 +5,62 @@ using UnityEngine.Experimental.U2D;
 using Vector3 = UnityEngine.Vector3;
 
 public class ShapeTrigger : MonoBehaviour {
+    public Color TriggerColor = new Color(0, 128, 128); // teal
+    public Color OriginalColor;
     private SpriteShapeRenderer _spriteRenderer;
-    private Dictionary<int, Collider2D> _colliders = new Dictionary<int, Collider2D>();
+    private Dictionary<int, Vector3> _colliderBoundSizes = new Dictionary<int, Vector3>();
     private Vector3 _boundSize;
     private Vector3 _collectiveColliderSize = Vector3.zero;
-    private Color _originalColor;
     private float _autoDieTime = 1;
 
     private void Awake() {
         _spriteRenderer = GetComponent<SpriteShapeRenderer>();
-        _originalColor = _spriteRenderer.material.color;
+        OriginalColor = _spriteRenderer.material.color;
         _boundSize = _spriteRenderer.bounds.size;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        AddCollider(other);
+        AddCollider(other.GetInstanceID(), other.bounds.size);
         ChangeColor();
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        RemoveCollider(other);
+        RemoveCollider(other.GetInstanceID(), other.bounds.size);
         ChangeColor();
     }
 
     private void ChangeColor() {
         if (_collectiveColliderSize.x >= _boundSize.x && 
             _collectiveColliderSize.y >= _boundSize.y) {
-            _spriteRenderer.material.color = Color.red;
+            _spriteRenderer.material.color = TriggerColor;
             SendMessageUpwards("RegisterShapeCollision", GetInstanceID());
-        } else if (_spriteRenderer.material.color != _originalColor) {
-            _spriteRenderer.material.color = _originalColor;
+        } else if (_spriteRenderer.material.color != OriginalColor) {
+            _spriteRenderer.material.color = OriginalColor;
             SendMessageUpwards("UnregisterShapeCollision", GetInstanceID());
         }
     }
     
-    private void AddCollider(Collider2D other) {
+    private void AddCollider(int instanceId, Vector3 boundSize) {
         // TODO: this adds the bounds.size on ENTERING, not full take-up of the value. We need to address this.
-        _collectiveColliderSize += other.bounds.size;
-        _colliders[other.GetInstanceID()] = other;
-        StartCoroutine(AutoDie(other));
+        _collectiveColliderSize += boundSize;
+        _colliderBoundSizes.Add(instanceId, boundSize);
+        StartCoroutine(UnregisterDeadCollider(instanceId, boundSize));
     }
 
-    private void RemoveCollider(Collider2D other) {
-        _collectiveColliderSize -= other.bounds.size;
-        _colliders.Remove(other.GetInstanceID());
+    private void RemoveCollider(int instanceId, Vector3 boundSize) {
+        _collectiveColliderSize -= boundSize;
+        _colliderBoundSizes.Remove(instanceId);
     }
 
-    private IEnumerator AutoDie(Collider2D other) {
+    /*
+     * Sort of a hack to cope with a Ripple dying before
+     * moving outside of the shape.
+     */
+    private IEnumerator UnregisterDeadCollider(int instanceId, Vector3 boundSize) {
         yield return new WaitForSeconds(_autoDieTime);
-        if (_colliders[other.GetInstanceID()] != null) {
-            RemoveCollider(other);
+        Vector3 vectorArtifact;
+        if (_colliderBoundSizes.TryGetValue(instanceId, out vectorArtifact)) {
+            RemoveCollider(instanceId, boundSize);
         }
     }
 }
