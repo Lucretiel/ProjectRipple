@@ -25,6 +25,13 @@ public class RippleAgent : MonoBehaviour
     // point. It changes when the agent undergoes a reflection.
     public RippleOrigin origin;
 
+    // Set a new origin; update the rigidbody velocity
+    private void SetOrigin(RippleOrigin newOrigin)
+    {
+        this.origin = newOrigin;
+        this.GetComponent<Rigidbody2D>().velocity = getRelativeVec().normalized * speed;
+    }
+
     // Our velocity. 
     public float speed;
 
@@ -51,7 +58,7 @@ public class RippleAgent : MonoBehaviour
         var oldLeftNeighbor = leftNeighbor;
 
         var newLeftNeighbor = Instantiate(this, position, this.transform.rotation, this.transform.parent);
-        newLeftNeighbor.origin = newOrigin;
+        newLeftNeighbor.SetOrigin(newOrigin);
 
         oldLeftNeighbor.rightNeighbor = newLeftNeighbor;
         this.leftNeighbor = newLeftNeighbor;
@@ -78,7 +85,7 @@ public class RippleAgent : MonoBehaviour
         // Check if we need to spawn a new neighbor
         var toNeighbor = this.leftNeighbor.transform.position - this.transform.position;
         var distance = toNeighbor.magnitude;
-        var sameOrigin = origin.Equals(leftNeighbor.origin);
+        var sameOrigin = origin == leftNeighbor.origin;
         if (distance > spawnThreshold && sameOrigin) 
         {
             SpawnLeftOnCurve();
@@ -111,24 +118,17 @@ public class RippleAgent : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        // Move the agent
-        var tick = getRelativeVec().normalized * speed * Time.deltaTime;
-        this.transform.position += tick;
-
-        //if(this.origin.Equals(leftNeighbor.origin))
-        //{
-        //    Debug.DrawLine(transform.position, leftNeighbor.transform.position, Color.cyan);
-        //}
+        var body = this.GetComponent<Rigidbody2D>();
+        body.velocity = this.getRelativeVec().normalized * this.speed;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check for collisions with Reflectors, and reflect if necessary.
-        var reflector = other.GetComponent<Reflector>();
+        //Check for collisions with Reflectors, and reflect if necessary.
+        var reflector = collision.gameObject.GetComponent<Reflector>();
         var newOrigin = origin.GetReflectedOrigin(reflector);
-        origin = newOrigin;
+        SetOrigin(newOrigin);
     }
 }

@@ -316,7 +316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598671295}
   m_LocalRotation: {x: 0.6339501, y: -0.3132208, z: -0.31322086, w: 0.6339502}
-  m_LocalPosition: {x: 7.11, y: 1.57, z: -0.33997002}
+  m_LocalPosition: {x: 7.11, y: 1.57, z: 0}
   m_LocalScale: {x: 11.534801, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -330,7 +330,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598671295}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
