@@ -10,7 +10,7 @@ public class Scene : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         cam = Camera.main;
-        shader = new Material(Shader.Find("Sprites/Default")) { color = Color.blue };
+        shader = new Material(Shader.Find("Sprites/Default")) { color = new Color(1, 1, 1, .1f) };
     }
 
     public void OnPointerClick(PointerEventData eventData)

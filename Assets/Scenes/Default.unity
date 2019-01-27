@@ -268,7 +268,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a577d4a84b6274b91bb4f030e2d4b09d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b65d8426a1f35418b8e67bb4a2f24692, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -287,7 +287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455745297}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.0444674, y: -1.5990595, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -341,7 +341,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 28.16, y: 21.12}
+    oldSize: {x: 10.8, y: 19.2}
     newSize: {x: 28.16, y: 21.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -362,8 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231e8fc93312d4a5893195b5a1160a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RippleGenerator: {fileID: 8270651892309274260, guid: 1973ae00ee520456282980a0c0e0b5dc,
-    type: 3}
+  ripple: {fileID: 8270651892309274260, guid: 1973ae00ee520456282980a0c0e0b5dc, type: 3}
 --- !u!1 &1173290898
 GameObject:
   m_ObjectHideFlags: 0

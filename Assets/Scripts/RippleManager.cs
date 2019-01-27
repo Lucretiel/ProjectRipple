@@ -34,11 +34,6 @@ public class RippleManager : MonoBehaviour {
         lineRenderer.SetPosition(count, origin.transform.position);
     }
 
-    public void Remove()
-    {
-        Object.Destroy(gameObject);
-    }
-
     private IEnumerator AutoDie()
     {
         yield return new WaitForSeconds(autoDieTime);
