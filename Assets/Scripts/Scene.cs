@@ -12,11 +12,15 @@ public class Scene : MonoBehaviour, IPointerClickHandler
     private int _levelIndex = -1;
     private GameObject _currentLevel;
     private ShapeTriggerSystem _currentLevelShapeSystem;
+    private AudioSource[] audioLayers;
 
     void Start()
     {
         cam = Camera.main;
         shader = new Material(Shader.Find("Sprites/Default")) { color = new Color(1, 1, 1, .1f) };
+        audioLayers = this.GetComponents<AudioSource>();
+
+        UpdateAudioLevels(0);
 
         if (!testingLevels) {
             ActivateNextLevel();
@@ -41,8 +45,18 @@ public class Scene : MonoBehaviour, IPointerClickHandler
         newRipple.GetComponent<RippleManager>().shader = shader;
     }
 
+    private void UpdateAudioLevels(float volume)
+    {
+        for (int i = 1; i < 4; i++)
+        {
+            audioLayers[i].volume = volume;
+        }
+    }
+
     private void ActivateNextLevel() {
         _levelIndex++;
+        UpdateAudioLevels(_levelIndex/5);
+
         if (_levelIndex <= Levels.Length - 1) {
             var prefab = Levels[_levelIndex];
             _currentLevel = Instantiate(prefab);
