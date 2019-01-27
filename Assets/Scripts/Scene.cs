@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Scene : MonoBehaviour, IPointerClickHandler
@@ -17,6 +15,7 @@ public class Scene : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("ya");
         Vector3 position = cam.ScreenToWorldPoint(eventData.position);
         GameObject ripple = Instantiate(RippleGenerator, new Vector3(position.x, position.y), Quaternion.identity);
         ripple.GetComponent<RippleGenerator>().shader = shader;
