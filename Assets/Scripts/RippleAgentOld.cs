@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RippleAgent : MonoBehaviour
+public class RippleAgentOld : MonoBehaviour
 {
     public Vector3 movement;
     public float speed = 3f;

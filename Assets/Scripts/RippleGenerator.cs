@@ -23,7 +23,7 @@ public class RippleGenerator : MonoBehaviour
             RippleList[i] = Instantiate(RippleResource);
             RippleList[i].transform.SetParent(this.transform);
             RippleList[i].transform.localPosition = Vector3.zero;
-            RippleList[i].GetComponent<RippleAgent>().movement = new Vector3(Mathf.Cos(DegreeDifference * i), Mathf.Sin(DegreeDifference * i));
+            RippleList[i].GetComponent<RippleAgentOld>().movement = new Vector3(Mathf.Cos(DegreeDifference * i), Mathf.Sin(DegreeDifference * i));
         }
     }
 
