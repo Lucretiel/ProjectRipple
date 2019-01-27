@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231e8fc93312d4a5893195b5a1160a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RippleGenerator: {fileID: 482145967181904529, guid: 836e76cb954a94b16a629a1aaa11f861,
+  RippleGenerator: {fileID: 8270651892309274260, guid: 1973ae00ee520456282980a0c0e0b5dc,
     type: 3}
 --- !u!1 &1173290898
 GameObject:
