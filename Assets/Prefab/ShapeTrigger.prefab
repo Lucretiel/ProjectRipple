@@ -218,3 +218,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebaf7f8f2c1843be83ea8762a2597bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TriggerColor: {r: 0, g: 128, b: 128, a: 1}
+  OriginalColor: {r: 0, g: 0, b: 0, a: 0}
