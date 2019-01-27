@@ -7,11 +7,14 @@ using Vector3 = UnityEngine.Vector3;
 public class ShapeTrigger : MonoBehaviour {
     public Color TriggerColor = new Color(0, 128, 128); // teal
     public Color OriginalColor;
+    
     private SpriteShapeRenderer _spriteRenderer;
     private Dictionary<int, Vector3> _colliderBoundSizes = new Dictionary<int, Vector3>();
     private Vector3 _boundSize;
     private Vector3 _collectiveColliderSize = Vector3.zero;
     private float _autoDieTime = 1;
+    [SerializeField]
+    private bool _isCheckingCollisions = true;
 
     private void Awake() {
         _spriteRenderer = GetComponent<SpriteShapeRenderer>();
@@ -19,25 +22,37 @@ public class ShapeTrigger : MonoBehaviour {
         _boundSize = _spriteRenderer.bounds.size;
     }
 
+    private void Update() {
+        if (_isCheckingCollisions) {
+            CheckCollisionIntersection();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other) {
         AddCollider(other.GetInstanceID(), other.bounds.size);
-        ChangeColor();
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         RemoveCollider(other.GetInstanceID(), other.bounds.size);
-        ChangeColor();
     }
 
-    private void ChangeColor() {
+    private void CheckCollisionIntersection() {
         if (_collectiveColliderSize.x >= _boundSize.x && 
             _collectiveColliderSize.y >= _boundSize.y) {
-            _spriteRenderer.material.color = TriggerColor;
+            ChangeColor(TriggerColor);
             SendMessageUpwards("RegisterShapeCollision", GetInstanceID());
         } else if (_spriteRenderer.material.color != OriginalColor) {
-            _spriteRenderer.material.color = OriginalColor;
+            ChangeColor(OriginalColor);
             SendMessageUpwards("UnregisterShapeCollision", GetInstanceID());
         }
+    }
+
+    private void ChangeColor(Color color) {
+        _spriteRenderer.material.color = color;
+    }
+
+    private void StopCheckingCollisions() {
+        _isCheckingCollisions = false;
     }
     
     private void AddCollider(int instanceId, Vector3 boundSize) {
