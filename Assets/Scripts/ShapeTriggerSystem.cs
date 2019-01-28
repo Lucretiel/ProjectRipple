@@ -6,42 +6,49 @@ public class ShapeTriggerSystem : MonoBehaviour {
     public bool Complete = false;
     public float TimeToWaitAfterCompletion = 5.0f;
     [SerializeField]
-    private bool _allShapesTriggered = false;
-    [SerializeField]
     private bool _isCheckingCollisions = true;
 
-    private Dictionary<int, bool> _shapeTriggers = new Dictionary<int, bool>();
+    private Dictionary<ShapeTriggerWithOrigin, bool> childTriggers = new Dictionary<int, bool>();
 
     private void Awake() {
-       var components = GetComponentsInChildren<ShapeTrigger>();
+       var components = GetComponentsInChildren<ShapeTriggerWithOrigin>();
 
         foreach (var component in components) {
-            _shapeTriggers.Add(component.GetInstanceID(), false);
+            childTriggers.Add(component, false);
         }
     }
 
-    void Update()
+    public bool allShapesTriggered
     {
-        if (_allShapesTriggered && _isCheckingCollisions) {
+        get
+        {
+            foreach(bool matched in childTriggers.Values)
+            {
+                if(!matched)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (allShapesTriggered && _isCheckingCollisions) {
             _isCheckingCollisions = false;
             BroadcastMessage("StopCheckingCollisions");
             StartCoroutine(CompleteSystem());
         }
     }
 
-    public void RegisterShapeCollision(int instanceId) {
-        _shapeTriggers[instanceId] = true;
-        _allShapesTriggered = true;
-        foreach (var shape in _shapeTriggers) {
-            if (!shape.Value) {
-                _allShapesTriggered = false;
-            }
-        }
+    public void RegisterMatch(ShapeTriggerWithOrigin instanceId) {
+        childTriggers[instanceId] = true;
     }
 
-    public void UnregisterShapeCollision(int instanceId) {
-        _shapeTriggers[instanceId] = false;
-        _allShapesTriggered = false;
+    public void RegisterUnmatch(ShapeTriggerWithOrigin instanceId) {
+        childTriggers[instanceId] = false;
+
     }
 
     private IEnumerator CompleteSystem() {
