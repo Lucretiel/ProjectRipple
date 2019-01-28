@@ -286,12 +286,12 @@ PrefabInstance:
     - target: {fileID: 3909785957946366740, guid: 8fa19b7c5f65a40789756c0c401abd06,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.83
+      value: -3.99
       objectReference: {fileID: 0}
     - target: {fileID: 3909785957946366740, guid: 8fa19b7c5f65a40789756c0c401abd06,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.99
+      value: -1.61
       objectReference: {fileID: 0}
     - target: {fileID: 3909785957946366740, guid: 8fa19b7c5f65a40789756c0c401abd06,
         type: 3}
@@ -311,12 +311,12 @@ PrefabInstance:
     - target: {fileID: 3909785957946366740, guid: 8fa19b7c5f65a40789756c0c401abd06,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.36273587
+      value: 0.29496378
       objectReference: {fileID: 0}
     - target: {fileID: 3909785957946366740, guid: 8fa19b7c5f65a40789756c0c401abd06,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.93189204
+      value: 0.9555084
       objectReference: {fileID: 0}
     - target: {fileID: 3909785957946366740, guid: 8fa19b7c5f65a40789756c0c401abd06,
         type: 3}
@@ -336,12 +336,12 @@ PrefabInstance:
     - target: {fileID: 3909785957946366740, guid: 8fa19b7c5f65a40789756c0c401abd06,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 42.537003
+      value: 34.311
       objectReference: {fileID: 0}
     - target: {fileID: 3909785957946366740, guid: 8fa19b7c5f65a40789756c0c401abd06,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.975
+      value: 9.813632
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fa19b7c5f65a40789756c0c401abd06, type: 3}
@@ -411,6 +411,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8715501390412463144, guid: 1973ae00ee520456282980a0c0e0b5dc,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.8472214
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1973ae00ee520456282980a0c0e0b5dc, type: 3}
