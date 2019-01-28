@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RippleManager : MonoBehaviour {
+    public float startFadeTime = 2.9f;
     public float autoDieTime = 3;
     public Material shader;
     private LineRenderer lineRenderer;
@@ -13,6 +14,7 @@ public class RippleManager : MonoBehaviour {
         lineRenderer.transform.SetParent(this.transform);
         lineRenderer.material = shader;
         StartCoroutine(AutoDie());
+        StartCoroutine(AutoFade());
     }
 
     void Update()
@@ -38,5 +40,31 @@ public class RippleManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(autoDieTime);
         Destroy(gameObject);
+    }
+
+    private IEnumerator AutoFade()
+    {
+        yield return new WaitForSeconds(startFadeTime);
+        var startMoment = Time.time;
+        var fadeDuration = autoDieTime - startFadeTime;
+        var startColor = shader.color;
+
+        while(true)
+        {
+            // Wait 1 frame
+            yield return null;
+
+            // Compute our time delta
+            var now = Time.time;
+            var duration = now - startMoment;
+
+            // Compute our fade amount
+            var fadePercentage = 1 - (duration / fadeDuration);
+
+            // Update the alpha
+            var newColor = startColor;
+            newColor.a = startColor.a * fadePercentage;
+            shader.color = newColor;
+        }
     }
 }
