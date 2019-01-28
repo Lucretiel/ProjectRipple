@@ -47,7 +47,9 @@ public class RippleManager : MonoBehaviour {
         yield return new WaitForSeconds(startFadeTime);
         var startMoment = Time.time;
         var fadeDuration = autoDieTime - startFadeTime;
-        var startColor = shader.color;
+
+        var line = GetComponent<LineRenderer>();
+        var startColor = line.startColor;
 
         while(true)
         {
@@ -64,7 +66,8 @@ public class RippleManager : MonoBehaviour {
             // Update the alpha
             var newColor = startColor;
             newColor.a = startColor.a * fadePercentage;
-            shader.color = newColor;
+            line.startColor = newColor;
+            line.endColor = newColor;
         }
     }
 }
